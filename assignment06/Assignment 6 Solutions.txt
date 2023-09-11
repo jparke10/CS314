@@ -1,0 +1,18 @@
+6-2:
+
+a) Why instruction can or cannot be parallelized across loop iterations
+
+Instructions in question:
+mulss %xmm2, %xmm0
+adds %xmm0, %xmm1
+
+I believe these cannot be parallelized because of the fact that the
+adds instruction requires the value in %xmm0 to be updated, and the
+mulss instruction is actively changing that value. %xmm1 would not
+have the correct answer contained in it if these were parallelized.
+
+b) Lowest possible CPE for loop as currently written
+
+We concluded that the add instructions cannot be parallelized, and
+add takes 3 cycles + multiplication takes 5 cycles. There are 2 add
+instructions and 1 mul instruction, giving us 11 cycles.
